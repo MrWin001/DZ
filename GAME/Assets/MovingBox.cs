@@ -9,14 +9,14 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MovingBox : MonoBehaviour
 {
-    [SerializeField]public GameObject Box;
+    [SerializeField] public GameObject Box;
     [SerializeField] private int boxCounter;
     [SerializeField] private float speed = 20f;
-    [SerializeField] private float angle = 15f;
+    [SerializeField] private float angleRotationAxis = 15f;
+    [SerializeField] private float radius = 5f;
     [SerializeField] private Vector3 center = new Vector3(0, 0, 0);
     [SerializeField] private Vector3 axis = new Vector3(0, 10, 0);
     [SerializeField] private bool otherDirection;
-    private float radius = 5f;
 
     private GameObject[] boxes;
 
@@ -36,7 +36,7 @@ public class MovingBox : MonoBehaviour
             var angle = i * Mathf.PI * 2 / boxCounter;
             var position = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
             boxes[i] = Instantiate(Box, position, Quaternion.identity);
-        }    
+        }
     }
 
 
@@ -59,12 +59,12 @@ public class MovingBox : MonoBehaviour
             if (otherDirection == true)
             {
                 box.transform.RotateAround(center, -axis, speed * speed * Time.deltaTime);
-                box.transform.Rotate(angle, 0, 0);
+                box.transform.Rotate(angleRotationAxis, 0, 0);
             }
             else
             {
                 box.transform.RotateAround(center, axis, speed * speed * Time.deltaTime);
-                box.transform.Rotate(angle,0,0);
+                box.transform.Rotate(angleRotationAxis, 0, 0);
             }
         }
     }
