@@ -15,7 +15,7 @@ public class MovingBox : MonoBehaviour
     [SerializeField] private float angle = 15f;
     [SerializeField] private Vector3 center = new Vector3(0, 0, 0);
     [SerializeField] private Vector3 axis = new Vector3(0, 10, 0);
-
+    [SerializeField] private bool otherDirection;
     private float radius = 5f;
 
     private GameObject[] boxes;
@@ -56,8 +56,16 @@ public class MovingBox : MonoBehaviour
 
         foreach (var box in boxes)
         {
-            box.transform.RotateAround(center, axis, speed * speed * Time.deltaTime);
-            box.transform.Rotate(angle,0,0);
+            if (otherDirection == true)
+            {
+                box.transform.RotateAround(center, -axis, speed * speed * Time.deltaTime);
+                box.transform.Rotate(angle, 0, 0);
+            }
+            else
+            {
+                box.transform.RotateAround(center, axis, speed * speed * Time.deltaTime);
+                box.transform.Rotate(angle,0,0);
+            }
         }
     }
 }
