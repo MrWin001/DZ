@@ -23,6 +23,11 @@ public class MovingBox : MonoBehaviour
     void Start()
     {
 
+
+    }
+
+    private void Awake()
+    {
         if (Box == null)
         {
             Debug.LogError("Box was is null");
@@ -37,12 +42,6 @@ public class MovingBox : MonoBehaviour
             var position = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
             boxes[i] = Instantiate(Box, position, Quaternion.identity);
         }
-    }
-
-
-    private void Awake()
-    {
-
     }
 
     // Update is called once per frame
