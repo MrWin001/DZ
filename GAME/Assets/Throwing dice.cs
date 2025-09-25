@@ -1,22 +1,35 @@
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
+using TMPro;
+using UnityEngine.UI;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class ThrowingDice: MonoBehaviour
 {
-    private Rigidbody rigidbody;
     private bool hasLanded;
     private bool abandoned;
-    private Vector3 initPOsition;   
+    private bool isTrowing = true;
+    private Rigidbody rigidbody;
     private System.Random variableRandomness = new System.Random();
-    private Vector3 direction = Vector3.zero;
-    private int Score;
-    private Keyboard keyboard;
-    private List<int> pointsCube;
+    
+    private Vector3 initPOsition;   
+    private static Vector3 diceVelocity;
+
+    public static Vector3 DiceVelocity
+    {
+        get { return diceVelocity; }
+        set 
+        {
+            if (value == null)
+            {
+
+            }
+            else
+            {
+                diceVelocity = value;
+            }            
+        }
+    }
+
 
     private void Awake()
     {
@@ -24,24 +37,17 @@ public class NewMonoBehaviourScript : MonoBehaviour
         initPOsition = transform.position;
         rigidbody.useGravity = false;
     }
-
-    // Update is called once per frame
+    
     private void Update()
-    {
-        
-        switch (Keyboard.current.anyKey.isPressed)
-        {
-            case true:
-                Roll();
-                break;
-
-            default:
-                break;
-        }
-            
+    {      
+        if (Keyboard.current.anyKey.isPressed && isTrowing == true)
+        {           
+            Roll();            
+        }            
     }
     private void Roll()
     {
+        isTrowing = false;      
         if (!abandoned && !hasLanded)
         {          
             abandoned = true;
@@ -55,19 +61,22 @@ public class NewMonoBehaviourScript : MonoBehaviour
             rigidbody.AddForce(Vector3.right * variableRandomness.Next(0, 15), ForceMode.Impulse);
         }
     }
-    private void Resets()
-    {
-        rigidbody.position = initPOsition;
-        abandoned = false;
-        hasLanded = false;
-        rigidbody.useGravity = false;
-    }
-    private void ReRoll(bool hasLanded,Rigidbody rigidbody)
-    {
-        if (hasLanded == true && rigidbody.useGravity == false && rigidbody.IsSleeping())
-        {
-            Resets();
-            Roll();
-        }
-    }
+
+    //private void Resets()
+    //{
+    //    rigidbody.position = initPOsition;
+    //    abandoned = false;
+    //    hasLanded = false;
+    //    rigidbody.useGravity = false;
+    //}
+
+    //private void ReRoll(bool hasLanded,Rigidbody rigidbody)
+    //{
+    //    if (hasLanded == true && rigidbody.useGravity == false && rigidbody.IsSleeping())
+    //    {
+    //        Resets();
+    //        Roll();
+    //        isTrowing = true;
+    //    }
+    //}
 }
