@@ -1,15 +1,17 @@
-using System.Drawing;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextScripts : MonoBehaviour
 {
-    private TextMeshProUGUI text;
-    private int points = CheckZone.point;
+    private Text text;
+    public static int points;
 
+    private void Awake()
+    {
+        text = GetComponent<Text>();
+    }
     public void UpdateText()
     {
-        text.text = points.ToString();        
+        text.text = points.ToString();
     }
 }

@@ -1,32 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-using UnityEngine.UI;
 
-public class ThrowingDice: MonoBehaviour
+public class ThrowingDice : MonoBehaviour
 {
-    private bool hasLanded;
-    private bool abandoned;
+    private bool hasLanded = false;
+    private bool abandoned = false;
     private bool isTrowing = true;
     private Rigidbody rigidbody;
     private System.Random variableRandomness = new System.Random();
-    
-    private Vector3 initPOsition;   
+
+    private Vector3 initPOsition;
     private static Vector3 diceVelocity;
 
     public static Vector3 DiceVelocity
     {
         get { return diceVelocity; }
-        set 
+        set
         {
             if (value == null)
             {
-
+                return;
             }
             else
             {
                 diceVelocity = value;
-            }            
+            }
         }
     }
 
@@ -37,19 +35,22 @@ public class ThrowingDice: MonoBehaviour
         initPOsition = transform.position;
         rigidbody.useGravity = false;
     }
-    
+
     private void Update()
-    {      
-        if (Keyboard.current.anyKey.isPressed && isTrowing == true)
-        {           
-            Roll();            
-        }            
+    {
+        if (Keyboard.current.anyKey.isPressed)
+        {
+            diceVelocity = rigidbody.linearVelocity;
+            Roll();
+        }
     }
+
     private void Roll()
     {
-        isTrowing = false;      
+        diceVelocity = rigidbody.linearVelocity;       
         if (!abandoned && !hasLanded)
-        {          
+        {
+            TextScripts.points = 0;
             abandoned = true;
             rigidbody.useGravity = true;
             rigidbody.AddTorque(
@@ -59,10 +60,12 @@ public class ThrowingDice: MonoBehaviour
                 variableRandomness.Next(9, variableRandomness.Next(20, 275)))
                 );
             rigidbody.AddForce(Vector3.right * variableRandomness.Next(0, 15), ForceMode.Impulse);
-        }
+            isTrowing = false;
+        }       
     }
 
-    //private void Resets()
+    //TODO
+    //private void Reset()
     //{
     //    rigidbody.position = initPOsition;
     //    abandoned = false;
@@ -70,6 +73,7 @@ public class ThrowingDice: MonoBehaviour
     //    rigidbody.useGravity = false;
     //}
 
+    //TODO
     //private void ReRoll(bool hasLanded,Rigidbody rigidbody)
     //{
     //    if (hasLanded == true && rigidbody.useGravity == false && rigidbody.IsSleeping())
