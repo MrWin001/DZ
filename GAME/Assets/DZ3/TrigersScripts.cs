@@ -3,9 +3,10 @@ using UnityEngine;
 public class TrigersScripts : MonoBehaviour
 {
     private Collider sideCollider;
-    private int value;
-    private Dice dice;
+    private int currentValue;
     private Global globalValue;
+    private Rigidbody RB;
+
     public Collider SideCollider
     {
         get { return sideCollider; }
@@ -23,9 +24,11 @@ public class TrigersScripts : MonoBehaviour
     }
     private void Awake()
     {
+        RB = GetComponent<Rigidbody>();
+        if (RB == null) Debug.Log($"Rigidbody не найден на объекте");
         globalValue = FindObjectOfType<Global>();
-    }
 
+    }
 
     private void OnTriggerEnter(Collider sideCollider)
     {
@@ -33,37 +36,65 @@ public class TrigersScripts : MonoBehaviour
         switch (tag)
         {
             case "1":
-                value = 6;
-                globalValue.AddValue(value);
-                // Debug.Log($"{value}");
+                currentValue = 6;
+                globalValue.AddValue(currentValue);               
                 break;
             case "2":
-                value = 5;
-                globalValue.AddValue(value);
-                // Debug.Log($"{value}");
+                currentValue = 5;
+                globalValue.AddValue(currentValue);                
                 break;
             case "3":
-                value = 4;
-                globalValue.AddValue(value);
-                //Debug.Log($"{value}");
+                currentValue = 4;
+                globalValue.AddValue(currentValue);               
                 break;
             case "4":
-                value = 3;
-                globalValue.AddValue(value);
-                // Debug.Log($"{value}");
+                currentValue = 3;
+                globalValue.AddValue(currentValue);                
                 break;
             case "5":
-                value = 2;
-                globalValue.AddValue(value);
-                //Debug.Log($"{value}");
+                currentValue = 2;
+                globalValue.AddValue(currentValue);         
                 break;
             case "6":
-                value = 1;
-                globalValue.AddValue(value);
-                // Debug.Log($"{value}");
+                currentValue = 1;
+                globalValue.AddValue(currentValue);                
                 break;
             default:
-                Debug.LogWarning($"Sphere collider не коснулся земли");
+                Debug.LogWarning($"Неизвестный тег триггера: {tag}");
+                break;
+        }
+    }
+
+    private void OnTriggerExit(Collider sideCollider)
+    {
+        var tag = sideCollider.tag;
+        switch (tag)
+        {
+            case "1":
+                currentValue = -6;
+                globalValue.AddValue(currentValue);
+                break;
+            case "2":
+                currentValue = -5;
+                globalValue.AddValue(currentValue);
+                break;
+            case "3":
+                currentValue = -4;
+                globalValue.AddValue(currentValue);
+                break;
+            case "4":
+                currentValue = -3;
+                globalValue.AddValue(currentValue);
+                break;
+            case "5":
+                currentValue = -2;
+                globalValue.AddValue(currentValue);
+                break;
+            case "6":
+                currentValue = -1;
+                globalValue.AddValue(currentValue);
+                break;
+            default:               
                 break;
         }
     }

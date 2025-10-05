@@ -7,20 +7,21 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Dice : MonoBehaviour
 {
-    private bool abandoned = false;
+    private bool isAbandoned = false;
     private TrigersScripts triggerScript;
-    public bool isGrounded { get; set; }
     private Vector3 startPosition;
     private Rigidbody rB;
+
+    [SerializeField] private Global globalValue;   
     public System.Random variableRandomnes { get; set; }
-    [SerializeField] private Global globalValue;
+    public bool isGrounded { get; set; } = false;
     [SerializeField]
     public Rigidbody RB
     {
         get { return rB; }
         set
         {
-            if (value == null) Debug.LogWarning($"Dise не назначен");
+            if (value == null) Debug.LogWarning($"Dise == null");
             rB = value;
         }
     }
@@ -30,13 +31,13 @@ public class Dice : MonoBehaviour
         get { return startPosition; }
         set
         {
-            if (value == null) Debug.LogWarning($"Значение по умолначнию не задано");
+            if (value == null) Debug.LogWarning($"StartPosition == null");
             startPosition = value;
         }
     }
 
     private void Awake()
-    {
+    {      
         rB = GetComponent<Rigidbody>();
         startPosition = rB.transform.position;
         triggerScript = GetComponent<TrigersScripts>();
@@ -49,24 +50,22 @@ public class Dice : MonoBehaviour
     {
         isGrounded = false;
         if (Keyboard.current.anyKey.isPressed)
-        {
+        {           
             ThrovDice();                             
         }
-        Debug.Log($"Global value {globalValue.GlobalValue}");
     }
 
     private void ThrovDice()
     {
-        if (!abandoned && !isGrounded)
+        if (!isAbandoned && !isGrounded)
         {
-            rB.useGravity = true;
-            isGrounded = true;
+            rB.useGravity = true;           
             rB.AddTorque(new Vector3(
                 variableRandomnes.Next(20, variableRandomnes.Next(21, 30)),
                 variableRandomnes.Next(10, variableRandomnes.Next(11, 20)),
                 variableRandomnes.Next(9, variableRandomnes.Next(10, 25)))
             );
-            rB.AddForce(Vector3.right * variableRandomnes.Next(0, 5), ForceMode.Impulse);
+            rB.AddForce(Vector3.right * variableRandomnes.Next(0, 5), ForceMode.Impulse);           
         }
     }
 
@@ -75,6 +74,8 @@ public class Dice : MonoBehaviour
         if (triggerScript != null)
         {
             triggerScript.SideCollider = other;
+            isGrounded = true;
+            Debug.Log($"Dise on plase");
         }
     }
 }

@@ -6,9 +6,10 @@ public class SpawnDice : MonoBehaviour
     private System.Random variableRandomness;
     [SerializeField] private Dice dicePrefab;
     private TrigersScripts triggerScript;
-    private Global globalValue;
-    private void Start()
+    private Rigidbody RB;
+    private void Awake()
     {
+        RB = GetComponent<Rigidbody>();
         variableRandomness = new System.Random();
         if (dicePrefab == null)
         {
@@ -22,15 +23,15 @@ public class SpawnDice : MonoBehaviour
     {
         for (var i = 0; i < countSpawnerDice; i++)
         {
+            ++i;
             var newDice = Instantiate(dicePrefab,
                 new Vector3(
-                    variableRandomness.Next(5,10),
-                    variableRandomness.Next(5, 10), 
-                    variableRandomness.Next(5,10)), 
+                    variableRandomness.Next(10, 20),
+                    variableRandomness.Next(10, 20),
+                    variableRandomness.Next(5, 10)),
                 Quaternion.identity);
 
             newDice.variableRandomnes = variableRandomness;
-         
         }
     }
 

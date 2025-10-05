@@ -17,17 +17,17 @@ public class CanvasManager : MonoBehaviour
         diceStatic2 = dice2;
         totalStatic = total;
     }
-    //public static void ShowTotal(int value)
+    //public static void ShowTotal(int currentValue)
     //{
-    //    totalStatic.GetComponent<TextMeshProUGUI>().text = $"Total: {value.ToString()}";
+    //    totalStatic.GetComponent<TextMeshProUGUI>().text = $"Total: {currentValue.ToString()}";
     //}
-    //public static void ShowResultDice1(int value)
+    //public static void ShowResultDice1(int currentValue)
     //{
-    //    diceStatic1.GetComponent<TextMeshProUGUI>().text = $"Dice1: {value.ToString()}";
+    //    diceStatic1.GetComponent<TextMeshProUGUI>().text = $"Dice1: {currentValue.ToString()}";
     //}
-    //public static void ShowResultDice2(int value)
+    //public static void ShowResultDice2(int currentValue)
     //{
-    //    diceStatic2.GetComponent<TextMeshProUGUI>().text = $"Dice2: {value.ToString()}";
+    //    diceStatic2.GetComponent<TextMeshProUGUI>().text = $"Dice2: {currentValue.ToString()}";
     //}
     //public static void ResetDiceResult()
     //{
