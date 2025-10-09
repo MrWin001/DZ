@@ -2,28 +2,33 @@ using UnityEngine;
 
 public class SpawnDice : MonoBehaviour
 {
-    [SerializeField] private int countSpawnerDice;
+
+    [SerializeField] private Dices dicePrefab;
     private System.Random variableRandomness;
-    [SerializeField] private Dice dicePrefab;
     private TrigersScripts triggerScript;
     private Rigidbody RB;
+    private int countSpawnerDice = 1;
+
+    public int CountSpawnerDice
+    {
+        get { return countSpawnerDice; }
+        set { countSpawnerDice = value; }
+    }
+
+
     private void Awake()
     {
         RB = GetComponent<Rigidbody>();
         variableRandomness = new System.Random();
-        if (dicePrefab == null)
-        {
-            Debug.LogError("Dice Prefab не назначен в инспекторе!");
-            return;
-        }
-        SpawnMultipleDice();
     }
+
+    public void SpawnDices() => SpawnMultipleDice();
 
     private void SpawnMultipleDice()
     {
-        for (var i = 0; i < countSpawnerDice; i++)
+        for (var i = 1; i < countSpawnerDice; i++)
         {
-            ++i;
+
             var newDice = Instantiate(dicePrefab,
                 new Vector3(
                     variableRandomness.Next(10, 20),
@@ -32,6 +37,7 @@ public class SpawnDice : MonoBehaviour
                 Quaternion.identity);
 
             newDice.variableRandomnes = variableRandomness;
+            i++;
         }
     }
 

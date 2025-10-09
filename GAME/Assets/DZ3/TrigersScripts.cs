@@ -26,8 +26,7 @@ public class TrigersScripts : MonoBehaviour
     {
         RB = GetComponent<Rigidbody>();
         if (RB == null) Debug.Log($"Rigidbody не найден на объекте");
-        globalValue = FindObjectOfType<Global>();
-
+        globalValue = FindFirstObjectByType<Global>();
     }
 
     private void OnTriggerEnter(Collider sideCollider)
@@ -60,7 +59,7 @@ public class TrigersScripts : MonoBehaviour
                 globalValue.AddValue(currentValue);                
                 break;
             default:
-                Debug.LogWarning($"Неизвестный тег триггера: {tag}");
+                //Debug.LogWarning($"Неизвестный тег триггера: {tag}");
                 break;
         }
     }
@@ -94,7 +93,7 @@ public class TrigersScripts : MonoBehaviour
                 currentValue = -1;
                 globalValue.AddValue(currentValue);
                 break;
-            default:               
+            default:
                 break;
         }
     }

@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.VFX;
-using static UnityEngine.Rendering.DebugUI;
 
-public class Dice : MonoBehaviour
+using UnityEngine;
+
+public class Dices : MonoBehaviour
 {
     private bool isAbandoned = false;
     private TrigersScripts triggerScript;
@@ -15,6 +11,8 @@ public class Dice : MonoBehaviour
     [SerializeField] private Global globalValue;   
     public System.Random variableRandomnes { get; set; }
     public bool isGrounded { get; set; } = false;
+
+   
     [SerializeField]
     public Rigidbody RB
     {
@@ -36,26 +34,18 @@ public class Dice : MonoBehaviour
         }
     }
 
+
     private void Awake()
     {      
         rB = GetComponent<Rigidbody>();
         startPosition = rB.transform.position;
         triggerScript = GetComponent<TrigersScripts>();
-        rB.useGravity = false;
-        if (globalValue == null) globalValue = FindObjectOfType<Global>();
+        rB.useGravity = false;       
         if (variableRandomnes == null) variableRandomnes = new System.Random();
     }
 
-    private void FixedUpdate()
-    {
-        isGrounded = false;
-        if (Keyboard.current.anyKey.isPressed)
-        {           
-            ThrovDice();                             
-        }
-    }
-
-    private void ThrovDice()
+    public void ThrowDices() => ThrowDice();
+    private void ThrowDice()
     {
         if (!isAbandoned && !isGrounded)
         {
@@ -69,13 +59,20 @@ public class Dice : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ThrowDices(Dices[] dis)
     {
-        if (triggerScript != null)
+        foreach (var disItem in dis)
         {
-            triggerScript.SideCollider = other;
-            isGrounded = true;
-            Debug.Log($"Dise on plase");
-        }
+            if (!isAbandoned && !isGrounded)
+            {
+                rB.useGravity = true;
+                rB.AddTorque(new Vector3(
+                    variableRandomnes.Next(20, variableRandomnes.Next(21, 30)),
+                    variableRandomnes.Next(10, variableRandomnes.Next(11, 20)),
+                    variableRandomnes.Next(9, variableRandomnes.Next(10, 25)))
+                );
+                rB.AddForce(Vector3.right * variableRandomnes.Next(0, 5), ForceMode.Impulse);
+            }
+        }        
     }
 }

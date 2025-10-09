@@ -2,30 +2,41 @@ using UnityEngine;
 
 public class Global : MonoBehaviour
 {
-    private int globalValue = 0;
-    private float time;
+    private int globalValue;
+    private int minLoseValue;
+    private int maxWinValue;
+    private int drawValue;
+
+    public int DrawValue
+    {
+        get { return drawValue; }
+        set 
+        { 
+
+            drawValue = value; 
+        }
+    }
+
+    public int MaxWinValue
+    {
+        get { return maxWinValue; }
+        set { maxWinValue = value; }
+    }
+
+    public int MinLoseValue
+    {
+        get { return minLoseValue; }
+        set { minLoseValue = value; }
+    }
 
     public int GlobalValue
     {
         get { return globalValue; }
-        set 
-        {
-            globalValue = value; 
-        }
+        set { globalValue = value; }
     }
-
     private void Awake()
     {
         globalValue = default;
-    }
-
-    private void FixedUpdate()
-    {
-        time += Time.deltaTime;
-        if (time > 5)
-        {
-            Debug.Log($"Global currentValue {globalValue}");
-        }
     }
 
     public void AddValue(int amount)
