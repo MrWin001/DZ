@@ -11,8 +11,7 @@ public class Ui : MonoBehaviour
 
     [SerializeField] private Button ThrowDiceButton;
     [SerializeField] private Button SpawnDiceButton;
-    [SerializeField] private Button DelateDiceButton;
-
+   
     [SerializeField] private TMP_InputField InputMinLoseValue;
     [SerializeField] private TMP_InputField InputMaxWinValue;
     [SerializeField] private TMP_InputField InputDrawValue;
@@ -33,8 +32,9 @@ public class Ui : MonoBehaviour
         globalValue = FindFirstObjectByType<Global>();
        
         ThrowDiceButton.onClick.AddListener(ThrowsDice);
+
         SpawnDiceButton.onClick.AddListener(SpawnDice);
-        DelateDiceButton.onClick.AddListener(DelateDiceUi);
+        
         InputMinLoseValue.onValueChanged.AddListener(AppropriateMinLoseValue);
         InputMaxWinValue.onValueChanged.AddListener(AppropriateMaxWinValue);
         InputDrawValue.onValueChanged.AddListener(AppropriateDrawValue);
@@ -72,7 +72,7 @@ public class Ui : MonoBehaviour
     }
 
     private void AppropriateCounterSpawnDice(string value)
-    {
+    {       
         spawnDice.CountSpawnerDice = int.Parse(value);   
     }
 
@@ -82,7 +82,7 @@ public class Ui : MonoBehaviour
     }
 
     private void PrintWinValue()
-    {
+    {        
         MaxWinValue.text = globalValue.MaxWinValue.ToString();
     }
 
@@ -119,7 +119,7 @@ public class Ui : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SpawnDice is null! Ensure a SpawnDice component exists in the scene.");
+            Debug.LogError("SpawnDice is null");
         }
     }
 }

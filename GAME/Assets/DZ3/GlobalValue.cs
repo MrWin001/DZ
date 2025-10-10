@@ -12,21 +12,26 @@ public class Global : MonoBehaviour
         get { return drawValue; }
         set 
         { 
-
-            drawValue = value; 
+            if (value > 0) drawValue = value;        
         }
     }
 
     public int MaxWinValue
     {
         get { return maxWinValue; }
-        set { maxWinValue = value; }
+        set 
+        {
+            if (value > 0) maxWinValue = value; 
+        }
     }
 
     public int MinLoseValue
     {
         get { return minLoseValue; }
-        set { minLoseValue = value; }
+        set 
+        { 
+            if (value > 0) minLoseValue = value; 
+        }
     }
 
     public int GlobalValue

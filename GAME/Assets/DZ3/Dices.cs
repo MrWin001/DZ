@@ -11,7 +11,6 @@ public class Dices : MonoBehaviour
     [SerializeField] private Global globalValue;   
     public System.Random variableRandomnes { get; set; }
     public bool isGrounded { get; set; } = false;
-
    
     [SerializeField]
     public Rigidbody RB
@@ -34,7 +33,6 @@ public class Dices : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {      
         rB = GetComponent<Rigidbody>();
@@ -43,8 +41,7 @@ public class Dices : MonoBehaviour
         rB.useGravity = false;       
         if (variableRandomnes == null) variableRandomnes = new System.Random();
     }
-
-    public void ThrowDices() => ThrowDice();
+    
     private void ThrowDice()
     {
         if (!isAbandoned && !isGrounded)
@@ -75,4 +72,5 @@ public class Dices : MonoBehaviour
             }
         }        
     }
+    public void ThrowDices() => ThrowDice();
 }

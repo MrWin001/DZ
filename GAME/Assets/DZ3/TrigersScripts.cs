@@ -22,6 +22,7 @@ public class TrigersScripts : MonoBehaviour
             }
         }
     }
+
     private void Awake()
     {
         RB = GetComponent<Rigidbody>();

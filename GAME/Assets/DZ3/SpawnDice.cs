@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SpawnDice : MonoBehaviour
 {
-
     [SerializeField] private Dices dicePrefab;
     private System.Random variableRandomness;
     private TrigersScripts triggerScript;
@@ -15,15 +14,12 @@ public class SpawnDice : MonoBehaviour
         set { countSpawnerDice = value; }
     }
 
-
     private void Awake()
     {
         RB = GetComponent<Rigidbody>();
         variableRandomness = new System.Random();
     }
-
-    public void SpawnDices() => SpawnMultipleDice();
-
+    
     private void SpawnMultipleDice()
     {
         for (var i = 1; i < countSpawnerDice; i++)
@@ -48,4 +44,6 @@ public class SpawnDice : MonoBehaviour
             triggerScript.SideCollider = other;
         }
     }
+
+    public void SpawnDices() => SpawnMultipleDice();
 }
