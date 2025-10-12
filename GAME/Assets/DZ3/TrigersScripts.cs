@@ -63,6 +63,7 @@ public class TrigersScripts : MonoBehaviour
                 //Debug.LogWarning($"Неизвестный тег триггера: {tag}");
                 break;
         }
+
     }
 
     private void OnTriggerExit(Collider sideCollider)

@@ -7,34 +7,29 @@ using UnityEngine.UI;
 
 public class Ui : MonoBehaviour
 {
-    [SerializeField] private Dices[] dices;
-
     [SerializeField] private Button ThrowDiceButton;
     [SerializeField] private Button SpawnDiceButton;
-   
+    [SerializeField] private Button RespawnDiceButton;
     [SerializeField] private TMP_InputField InputMinLoseValue;
     [SerializeField] private TMP_InputField InputMaxWinValue;
     [SerializeField] private TMP_InputField InputDrawValue;
     [SerializeField] private TMP_InputField InputCounterSpawnDice;
-
     [SerializeField] private TextMeshProUGUI TextGlobalValue;
     [SerializeField] private TextMeshProUGUI MinLoseValue;
     [SerializeField] private TextMeshProUGUI MaxWinValue;
     [SerializeField] private TextMeshProUGUI DrawValue;
 
+    private Dices[] dices;
     private Global globalValue;
-    private SpawnDice spawnDice;
-    private DelateDice delateDice;
+    private SpawnAndDelateDice spawnAndDelateDice;
 
     private void Awake()
     {
-        spawnDice = FindAnyObjectByType<SpawnDice>();
+        spawnAndDelateDice = FindAnyObjectByType<SpawnAndDelateDice>();
         globalValue = FindFirstObjectByType<Global>();
-       
         ThrowDiceButton.onClick.AddListener(ThrowsDice);
-
+        RespawnDiceButton.onClick.AddListener(RespawnDice);
         SpawnDiceButton.onClick.AddListener(SpawnDice);
-        
         InputMinLoseValue.onValueChanged.AddListener(AppropriateMinLoseValue);
         InputMaxWinValue.onValueChanged.AddListener(AppropriateMaxWinValue);
         InputDrawValue.onValueChanged.AddListener(AppropriateDrawValue);
@@ -44,16 +39,10 @@ public class Ui : MonoBehaviour
     private void FixedUpdate()
     {
         dices = FindObjectsOfType<Dices>(true);
-        delateDice = FindAnyObjectByType<DelateDice>();
         PrintGlobalValue();
         PrintDrawValue();
         PrintWinValue();
         PrintLoseValue();
-    }
-
-    private void PrintGlobalValue()
-    {
-        TextGlobalValue.text = globalValue.GlobalValue.ToString();
     }
 
     private void AppropriateMinLoseValue(string value)
@@ -72,8 +61,13 @@ public class Ui : MonoBehaviour
     }
 
     private void AppropriateCounterSpawnDice(string value)
-    {       
-        spawnDice.CountSpawnerDice = int.Parse(value);   
+    {
+        spawnAndDelateDice.CountSpawnerDice = int.Parse(value);
+    }
+
+    private void PrintGlobalValue()
+    {
+        TextGlobalValue.text = globalValue.GlobalValue.ToString();
     }
 
     private void PrintDrawValue()
@@ -82,7 +76,7 @@ public class Ui : MonoBehaviour
     }
 
     private void PrintWinValue()
-    {        
+    {
         MaxWinValue.text = globalValue.MaxWinValue.ToString();
     }
 
@@ -99,27 +93,16 @@ public class Ui : MonoBehaviour
         }
     }
 
-    private void DelateDiceUi()
+    private void SpawnDice()
     {
-        if (delateDice != null)
+        if (spawnAndDelateDice.wasSpawnDices == false)
         {
-            delateDice.DelateDices();
-        }
-        else
-        {
-            Debug.LogError("Cant delate dices");
+            spawnAndDelateDice.SpawnDices();
         }
     }
 
-    private void SpawnDice()
+    private void RespawnDice()
     {
-        if (spawnDice != null)
-        {
-            spawnDice.SpawnDices();
-        }
-        else
-        {
-            Debug.LogError("SpawnDice is null");
-        }
+        spawnAndDelateDice.RespawnDices();
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - New tag
   - 6
   - ChecedZone
+  - win
   layers:
   - Default
   - TransparentFX

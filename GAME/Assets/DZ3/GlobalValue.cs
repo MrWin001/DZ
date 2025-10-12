@@ -2,35 +2,45 @@ using UnityEngine;
 
 public class Global : MonoBehaviour
 {
-    private int globalValue;
-    private int minLoseValue;
-    private int maxWinValue;
-    private int drawValue;
+    private int globalValue = default;
+    
+    private int minLoseValue = default;
+    private int maxWinValue = default;
+    private int drawValue = default;
+    private SpawnAndDelateDice spawn;
+    private int oldGlobalValue;
+    private float timer = default;
+
+    public int OldGlobalValue
+    {
+        get { return oldGlobalValue; }
+        set { oldGlobalValue = value; }
+    }
 
     public int DrawValue
     {
         get { return drawValue; }
-        set 
-        { 
-            if (value > 0) drawValue = value;        
+        set
+        {
+            if (value > 0) drawValue = value;
         }
     }
 
     public int MaxWinValue
     {
         get { return maxWinValue; }
-        set 
+        set
         {
-            if (value > 0) maxWinValue = value; 
+            if (value > 0) maxWinValue = value;
         }
     }
 
     public int MinLoseValue
     {
         get { return minLoseValue; }
-        set 
-        { 
-            if (value > 0) minLoseValue = value; 
+        set
+        {
+            if (value > 0) minLoseValue = value;
         }
     }
 
@@ -39,10 +49,11 @@ public class Global : MonoBehaviour
         get { return globalValue; }
         set { globalValue = value; }
     }
+
     private void Awake()
     {
-        globalValue = default;
-    }
+        spawn = FindObjectOfType<SpawnAndDelateDice>();
+    }   
 
     public void AddValue(int amount)
     {
