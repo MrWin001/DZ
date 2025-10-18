@@ -9,7 +9,6 @@ public class Global : MonoBehaviour
     private int drawValue = default;
     private SpawnAndDelateDice spawn;
     private int oldGlobalValue;
-    private float timer = default;
 
     public int OldGlobalValue
     {

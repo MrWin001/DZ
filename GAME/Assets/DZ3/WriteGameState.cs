@@ -20,7 +20,7 @@ public class WriteGameState : MonoBehaviour
             && globalValue.GlobalValue != 0
             )
         {
-            stateGame.text = "Подеба";
+            stateGame.text = "Победа";
             stateGame.color = Color.green;           
         }
 
